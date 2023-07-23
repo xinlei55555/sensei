@@ -26,6 +26,6 @@ def callPrompt(prompt):
     return response
 
 def sensei():
-    initialize
+    initialize()
     prompt = "Answer the following questions" + question+"with the following excerpt:\n " + transcript+". \n"
     callPrompt(prompt)
