@@ -58,7 +58,10 @@ def Feynman(transcript = "Nothing has been passed!", summarizer = pipeline("summ
             point_form.append(summarizer(summarized)[0]["summary_text"])
             summarized = ""
 
-    notes = {"subject": subject[0], "point_form": point_form}
+    if len(subject)<1:
+        notes = {"subject": subject, "point_form": point_form}
+    else:
+        notes = {"subject": subject[0], "point_form":point_form}
     return notes
 
 # def test(summarizer):

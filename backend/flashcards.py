@@ -29,7 +29,7 @@ def questionAnswering(subject, notes, question_answerer):
         
     return {"questions":questions, "answers":answers}
 
-def Flashcards(subject = "Nothing has been passed!", notes = "hi", summarizer = pipeline("summarization"), qna = pipeline("question-answering")):
+def Flashcards(subject = ["Nothing has been passed!"], notes = ["hi"], summarizer = pipeline("summarization"), qna = pipeline("question-answering")):
     cards = questionAnswering(subject, notes, qna)
     print(cards)
     return cards 

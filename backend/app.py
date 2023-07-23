@@ -65,6 +65,9 @@ def second_page():
 def third_page():
     paragraph = request.get_json()
     # extracts the json from the body of the POST
+    
+    #subject is the list of subjects from penpal
+    #notes is the list of notes from penpal
     subject = paragraph["subject"]
     notes = paragraph["notes"]
 
