@@ -34,25 +34,30 @@ def summary(transcript, n, summarizer):
 def Feynman(transcript="Nothing has been passed!"):
     # we have to parse the string and remove all spaces and remove the different corrupted characters
     transcript = remove_bad_characters(transcript)
+    paragraph = sentences(transcript)
+    summarized = ""
 
-    # generate a title for the notes:
+    # generate a subject/title for every 100 words in the notes:
     subjectFinder = pipeline("question-answering")
-    summarizer = pipeline("summarization")
+    subject = []
     # the number of summarizations depends on the length of the script, and is recursively summarized
-    subject = subjectFinder(
-        question="Who or what is the main subject of this paragraph?",
-        context=summary(transcript, len(transcript) // 500, summarizer),
-    )["answer"]
+    for sentence in paragraph:
+        summarized += sentence
+        if len(summarized) > 500:
+            subject.append(
+                subjectFinder(
+                    question="Who or what is the main subject of this paragraph?",
+                    context=summary(transcript, len(transcript) // 500, summarizer),
+                )["answer"]
+            )
 
     # returns a summarized vesrion of each paragraph, by summarizing each sentence
     point_form = []
     summarizer = pipeline("summarization")
-    paragraph = sentences(transcript)
-    summarized = ""
     for sentence in paragraph:
         summarized += sentence
         # summarize three sentences at a time? Or a specific character count at a time?
-        if len(summarized) > 700:
+        if len(summarized) > 350:
             point_form.append(summarizer(summarized)[0]["summary_text"])
             summarized = ""
 

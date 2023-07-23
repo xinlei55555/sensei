@@ -48,6 +48,7 @@ const SummarizerView = () => {
     console.log(file);
     const encodeFileBase64 = (file) => {
       var reader = new FileReader();
+      let Base64 = "";
       if (file) {
         return new Promise((resolve, reject) => {
           reader.readAsDataURL(file);
@@ -172,7 +173,7 @@ const SummarizerView = () => {
                   class="someClass"
                   type="file"
                   name="UploadAudio"
-                  accept=".mp3"
+                  accept=".mp3,audio/*"
                   hidden
                   disabled={isLoadingForMP3}
                   onChange={uploadFile}

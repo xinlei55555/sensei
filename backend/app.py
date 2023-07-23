@@ -1,21 +1,23 @@
 from flask import Flask, request, jsonify
 from Feynman import Feynman
-from flask_cors import CORS
 
+# from flask_cors import CORS
 # from flashcards import Flashcards
-from speech_rec import decodebase64
+# from speech_recognition import decodebase64
+# using json files:
 
 # using json files:
 
 # app is taking the name of __name__, which is any name
 app = Flask(__name__)
-CORS(app)
+# CORS(app)
 
 
 # remember that @app.route is a decorator that makes the function hello_world() run inside the function @app.route()
 @app.route("/")
 def hello_world():
-    return jsonify({"response": "Hi"})
+    initialize()
+    return "Hi"
 
 
 @app.route("/login")
