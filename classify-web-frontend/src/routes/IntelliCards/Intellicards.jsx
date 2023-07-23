@@ -10,13 +10,22 @@ import arrowDown from "../../assets/arrowDown.png";
 const Intellicards = () => {
   const [isGameMode, setIsGameMode] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [questions, setQuestions] = useState([
-    { question: "Who Am I?", answer: "Your worst nightmare!" },
-    { question: "Who Am I Part 2?", answer: "Your worst nightmare! AGAIN" },
-  ]);
+  const [questions, setQuestions] = useState([]);
   const [counter, setCounter] = useState(0);
-  const activateGame = () => {
+  const activateGame = async () => {
     setIsLoading(true);
+    const body = JSON.parse(localStorage.getItem("penpalNotes"));
+    console.log("BODY: ", body);
+    const response = await fetch("http://127.0.0.1:5000/flashcards", {
+      body: body[0],
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    setQuestions(data);
     setTimeout(() => {
       setIsGameMode(true);
       setIsLoading(false);
