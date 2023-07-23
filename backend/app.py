@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify
-from Feynman import Feynman
 from transformers import pipeline
 from flask_cors import CORS
+
+from Feynman import Feynman
 from flashcards import Flashcards
 
 # from speech_recognition import decodebase64
