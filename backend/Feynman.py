@@ -26,14 +26,14 @@ def summary(transcript, n, summarizer):
         transcript = summarizer(transcript)[0]["summary_text"] 
         return summary(transcript, n-1, summarizer)
     
-def Feynman(transcript = "Nothing has been passed!"):
+def Feynman(transcript = "Nothing has been passed!", summarizer = pipeline("summarization"), subjectFinder = pipeline("question-answering")):
     #we have to parse the string and remove all spaces and remove the different corrupted characters
     transcript = remove_bad_characters(transcript)
     paragraph = sentences(transcript)
     summarized=""
 
     #generate a subject/title for every 100 words in the notes:
-    subjectFinder =  pipeline("question-answering")
+    # subjectFinder =  pipeline("question-answering")
     subject=[]
     #the number of summarizations depends on the length of the script, and is recursively summarized
     for sentence in paragraph:
@@ -43,7 +43,7 @@ def Feynman(transcript = "Nothing has been passed!"):
 
     #returns a summarized vesrion of each paragraph, by summarizing each sentence
     point_form=[]
-    summarizer = pipeline("summarization")
+    # summarizer = pipeline("summarization")
     for sentence in paragraph:
         summarized+= sentence
         #summarize three sentences at a time? Or a specific character count at a time? 

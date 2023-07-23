@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from Feynman import Feynman 
+from transformers import pipeline
 # from flask_cors import CORS
 # from flashcards import Flashcards
 # from speech_recognition import decodebase64
@@ -9,10 +10,14 @@ from Feynman import Feynman
 app = Flask(__name__)
 # CORS(app)
 
+def initialize():
+    qna = pipeline("question-answering")
+    summarizer = pipeline("summarizer") 
+summarizer, qna = initialize()
+
 #remember that @app.route is a decorator that makes the function hello_world() run inside the function @app.route()
 @app.route("/")
 def hello_world():
-    initialize()
     return "Hi"
 
 @app.route("/login")
@@ -29,6 +34,10 @@ def speechTranscription():
 #rest api.
 @app.route("/penpal", methods=['POST'])
 def second_page():
+     # #!accessing the global variable
+    summarizer = globals()["summarizer"]
+    qna = globals()["qna"]
+
     # transcript = request.form["transcript"]
     # instead of doing this, since aly is not happy, I will be taking in the body of the request, which is a json
     json = request.get_json()
@@ -40,7 +49,7 @@ def second_page():
     # elif file_type == "wav" or file_type == "mp3":
     #     transcript = speechTranscription(json["transcript"])
 
-    return jsonify(Feynman(transcript))
+    return jsonify(Feynman(transcript, summarizer, qna))
 
 @app.route("/flashcards")
 def third_page():
@@ -51,5 +60,7 @@ def third_page():
     return Flashcards(transcript)
 
 if __name__ == '__main__':
+    #!aly wants me to initialize the variables WHEN the backend loads, so that running the summarizer doesn't take as long
+    initialize()
     app.run(debug=True)
 
