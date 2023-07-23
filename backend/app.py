@@ -69,7 +69,7 @@ def third_page():
     #subject is the list of subjects from penpal
     #notes is the list of notes from penpal
     subject = paragraph["subject"]
-    notes = paragraph["notes"]
+    notes = paragraph["point_form"]
 
     qna = globals()["qna"]
     summarizer = globals()["summarizer"]
