@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Lottie, { LottieRefCurrentProps } from "lottie-react";
+import Lottie from "lottie-react";
 import animationData from "../../assets/animation_lkbovu0f.json";
 import downArrowData from "../../assets/downArrow.json";
 import schoolStuffData from "../../assets/schoolStuff.json";
@@ -119,7 +119,13 @@ const Home = () => {
             <div className="action">
               <p>Study a Subject</p>
               <div>
-                <button>Review with IntelliCards</button>
+                <button
+                  onClick={() => {
+                    navigate("/intelliCards");
+                  }}
+                >
+                  Review with IntelliCards
+                </button>
               </div>
             </div>
             <div className="action">

@@ -23,7 +23,23 @@
 .btn:hover {
   box-shadow: 4px 4px 3px 3px rgb(247, 224, 178);
 }
-
+.textArea {
+  width: 100%;
+  text-align: left;
+  flex: 1;
+  border: none;
+  border-radius: 5px;
+  background-color: #f2f0eb;
+  padding: 10px;
+  min-height: 500px;
+  font-family: "Victor Mono";
+  padding-left: 20px;
+  color: gray;
+  border-style: none;
+  border-color: Transparent;
+  overflow: auto;
+  outline: none;
+}
 textarea {
   width: 100%;
   flex: 1;
