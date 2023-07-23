@@ -40,6 +40,10 @@ def Feynman(transcript = "Nothing has been passed!", summarizer = pipeline("summ
     # subjectFinder =  pipeline("question-answering")
     subject=[]
     #the number of summarizations depends on the length of the script, and is recursively summarized
+
+    #returns a summarized vesrion of each paragraph, by summarizing each sentence
+    point_form=[]
+    # summarizer = pipeline("summarization")
     for sentence in paragraph:
         summarized += sentence
         if len(summarized) > 500:
@@ -49,16 +53,13 @@ def Feynman(transcript = "Nothing has been passed!", summarizer = pipeline("summ
                     context=summary(transcript, len(transcript) // 500, summarizer),
                 )["answer"]
             )
-
-    #returns a summarized vesrion of each paragraph, by summarizing each sentence
-    point_form=[]
-    # summarizer = pipeline("summarization")
-    for sentence in paragraph:
-        summarized += sentence
         # summarize three sentences at a time? Or a specific character count at a time?
         if len(summarized) > 350:
             point_form.append(summarizer(summarized)[0]["summary_text"])
             summarized = ""
 
-    notes = {"subject": subject, "point_form": point_form}
+    notes = {"subject": subject[0], "point_form": point_form}
     return notes
+
+# def test(summarizer):
+#     print(summarizer("HIHIHIHI, Alright, hello everyone. So my name is Shani and today I'll be testing out our model pen pal which is a certain model that is able to first we're taking a audio recording and then we will be transferring this audio recording into. Um, we set of notes with the main subject, et cetera. So we shall test with the the text I just spoke and we shall see what happens. Let's try."))
