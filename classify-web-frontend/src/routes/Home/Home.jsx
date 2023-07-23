@@ -131,7 +131,13 @@ const Home = () => {
             <div className="action">
               <p>Need Some Help</p>
               <div>
-                <button>Ask the Sensei</button>
+                <button
+                  onClick={() => {
+                    navigate("/sensei");
+                  }}
+                >
+                  Ask the Sensei
+                </button>
               </div>
             </div>
           </div>

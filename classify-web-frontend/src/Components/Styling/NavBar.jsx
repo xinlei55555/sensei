@@ -45,7 +45,7 @@ const NavBar = () => {
               </a>
             </li>
           </Link>
-          <Link to="/intelliCards">
+          <Link to="/sensei">
             <li className="px-5 py-5">
               <a className=" text-black hover:rounded-lg px-5 py-5 hover:text-slate-900 hover:bg-slate-200">
                 Sensei
@@ -93,7 +93,7 @@ const NavBar = () => {
               </a>
             </li>
           </Link>
-          <Link to="/intelliCards">
+          <Link to="/sensei">
             <li className="px-5 py-5">
               <a className=" text-black hover:rounded-lg px-5 py-5 hover:text-slate-900 hover:bg-slate-200">
                 Sensei

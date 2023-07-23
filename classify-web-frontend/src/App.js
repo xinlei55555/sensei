@@ -10,6 +10,7 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 import SummarizerView from "./routes/PenPal/SummarizerView";
 import Intellicards from "./routes/IntelliCards/Intellicards";
+import Sensei from "./routes/Sensei/Sensei";
 if ("webkitSpeechRecognition" in window) {
   // Speech Recognition Stuff goes here
   console.log("IT WORKS");
@@ -38,6 +39,7 @@ function App() {
         <Route exact path="/signup" element={<SignupPage />} />
         <Route exact path="/penpal" element={<SummarizerView />} />
         <Route exact path="/intelliCards" element={<Intellicards />} />
+        <Route exact path="/sensei" element={<Sensei />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       <footer></footer>

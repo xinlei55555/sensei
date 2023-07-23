@@ -1,0 +1,39 @@
+.messageBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px;
+  justify-content: center;
+}
+
+.msgHistory {
+  flex: 1;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.msgInput {
+  border: solid 1px;
+  margin-left: 20px;
+  flex: 1;
+  padding: 10px;
+  min-height: 0px;
+  resize: none;
+}
+
+.sendBtn {
+  border: none;
+  outline: none;
+  padding: 20px;
+  background-color: #4c81af;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  box-shadow: 2px 1px 2px 2px gray;
+  margin-left: 20px;
+}
+
+.sendBtn:hover {
+  background-color: #74a3cc;
+}

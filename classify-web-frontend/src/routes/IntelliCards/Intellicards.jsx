@@ -20,7 +20,7 @@ const Intellicards = () => {
     setTimeout(() => {
       setIsGameMode(true);
       setIsLoading(false);
-    }, 1000);
+    }, 3000);
   };
   const getQuestions = () => {};
   if (!isGameMode && !isLoading)
@@ -70,10 +70,19 @@ const Intellicards = () => {
               borderRadius: "50%",
             }}
           />
-          <button className="start-btn" onClick={activateGame}>
+          <button
+            className="start-btn"
+            disabled={!localStorage.getItem("penpalNotes")}
+            onClick={activateGame}
+          >
             Start Studying
           </button>
         </div>
+        {!localStorage.getItem("penpalNotes") && (
+          <p style={{ color: "red", fontWeight: "bold", padding: 30 }}>
+            LOAD A TRANSCRIPT WITH PENPAL BEFORE USING THIS FUNCTIONALITY
+          </p>
+        )}
       </div>
     );
   else if (isLoading)
