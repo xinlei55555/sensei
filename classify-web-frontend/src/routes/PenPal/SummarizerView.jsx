@@ -8,6 +8,11 @@ const SummarizerView = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [isLoadingForMP3, setIsLoadingForMP3] = useState(false);
   const [transcriptValue, setTranscriptValue] = useState("");
+<<<<<<< HEAD
+=======
+  const [penpalValue, setPenPalValue] = useState("");
+  const [isLoadingForPenPal, setIsLoadingForPenPal] = useState(false);
+>>>>>>> a767207efc022e5d9e6fd84d6136301e9988020f
   const {
     transcript,
     listening,
@@ -34,15 +39,24 @@ const SummarizerView = () => {
     console.log(file);
     const encodeFileBase64 = (file) => {
       var reader = new FileReader();
+<<<<<<< HEAD
       if (file) {
         reader.readAsDataURL(file);
         reader.onload = () => {
           var Base64 = reader.result;
+=======
+      let Base64 = "";
+      if (file) {
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          Base64 = reader.result;
+>>>>>>> a767207efc022e5d9e6fd84d6136301e9988020f
           console.log(Base64);
         };
         reader.onerror = (error) => {
           console.log("error: ", error);
         };
+<<<<<<< HEAD
       }
     };
     if (file) {
@@ -50,6 +64,51 @@ const SummarizerView = () => {
     }
     setIsLoadingForMP3(false);
   };
+=======
+        return Base64;
+      }
+    };
+    if (file) {
+      let Base64 = encodeFileBase64(file);
+      try {
+        const body = { file: Base64 };
+        console.log(body);
+        const response = await fetch("http://127.0.0.1:5000/recognizer", {
+          body: JSON.stringify(body),
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        setTranscriptValue(data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    setIsLoadingForMP3(false);
+  };
+  const PenPal = async (transcript) => {
+    setIsLoadingForPenPal(true);
+    try {
+      const body = { transcript: transcriptValue };
+      console.log(body);
+      const response = await fetch("http://127.0.0.1:5000/penpal", {
+        body: JSON.stringify(body),
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      setPenPalValue(data);
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+    setIsLoadingForPenPal(false);
+  };
+>>>>>>> a767207efc022e5d9e6fd84d6136301e9988020f
 
   if (!browserSupportsSpeechRecognition && isRecording) {
     return (
@@ -119,7 +178,11 @@ const SummarizerView = () => {
                   class="someClass"
                   type="file"
                   name="UploadAudio"
+<<<<<<< HEAD
                   accept=".mp3,audio/*"
+=======
+                  accept=".mp3"
+>>>>>>> a767207efc022e5d9e6fd84d6136301e9988020f
                   hidden
                   disabled={isLoadingForMP3}
                   onChange={uploadFile}
@@ -142,10 +205,19 @@ const SummarizerView = () => {
               <button
                 className="btn"
                 style={{
+<<<<<<< HEAD
                   backgroundColor: "#0388fc",
                   color: "white",
                   borderRadius: 10,
                 }}
+=======
+                  backgroundColor: !isLoadingForPenPal ? "#0388fc" : "black",
+                  color: "white",
+                  borderRadius: 10,
+                }}
+                onClick={PenPal}
+                disabled={isLoadingForPenPal}
+>>>>>>> a767207efc022e5d9e6fd84d6136301e9988020f
               >
                 <i style={{ fontFamily: "Victor Mono", fontWeight: "bold" }}>
                   PenPal
@@ -178,7 +250,15 @@ const SummarizerView = () => {
               fontWeight: "400",
             }}
             placeholder="PenPal..."
+<<<<<<< HEAD
             value={""}
+=======
+            value={
+              typeof penpalValue === "string"
+                ? ""
+                : penpalValue.subject + "\n" + JSON.stringify(penpalValue)
+            }
+>>>>>>> a767207efc022e5d9e6fd84d6136301e9988020f
             disabled
           />
         </div>

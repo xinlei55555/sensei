@@ -22,8 +22,9 @@ def login():
 @app.route("/recognizer", methods=['POST'])
 def speechTranscription():   
     json=request.get_json()
+    print(json)
     file = json["file"] 
-    return decodebase64(file) 
+    return decodebase64(file, type="mp3") 
 
 #rest api.
 @app.route("/penpal", methods=['POST'])
