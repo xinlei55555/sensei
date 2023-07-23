@@ -26,37 +26,20 @@ def summary(transcript, n, summarizer):
     if n == 1:
         return transcript
     else:
-<<<<<<< HEAD
         #summarizer returns a list of dictionaries.
         transcript = summarizer(transcript)[0]["summary_text"] 
         return summary(transcript, n-1, summarizer)
     
 def Feynman(transcript = "Nothing has been passed!", summarizer = pipeline("summarization"), subjectFinder = pipeline("question-answering")):
     #we have to parse the string and remove all spaces and remove the different corrupted characters
-=======
-        # summarizer returns a list of dictionaries.
-        transcript = summarizer(transcript)[0]["summary_text"]
-        return summary(transcript, n - 1, summarizer)
-
-
-def Feynman(transcript="Nothing has been passed!"):
-    # we have to parse the string and remove all spaces and remove the different corrupted characters
->>>>>>> faabf899947000bf7eba0d9b821ef5d02f7c553a
     transcript = remove_bad_characters(transcript)
     paragraph = sentences(transcript)
     summarized = ""
 
-<<<<<<< HEAD
     #generate a subject/title for every 100 words in the notes:
     # subjectFinder =  pipeline("question-answering")
     subject=[]
     #the number of summarizations depends on the length of the script, and is recursively summarized
-=======
-    # generate a subject/title for every 100 words in the notes:
-    subjectFinder = pipeline("question-answering")
-    subject = []
-    # the number of summarizations depends on the length of the script, and is recursively summarized
->>>>>>> faabf899947000bf7eba0d9b821ef5d02f7c553a
     for sentence in paragraph:
         summarized += sentence
         if len(summarized) > 500:
@@ -67,15 +50,9 @@ def Feynman(transcript="Nothing has been passed!"):
                 )["answer"]
             )
 
-<<<<<<< HEAD
     #returns a summarized vesrion of each paragraph, by summarizing each sentence
     point_form=[]
     # summarizer = pipeline("summarization")
-=======
-    # returns a summarized vesrion of each paragraph, by summarizing each sentence
-    point_form = []
-    summarizer = pipeline("summarization")
->>>>>>> faabf899947000bf7eba0d9b821ef5d02f7c553a
     for sentence in paragraph:
         summarized += sentence
         # summarize three sentences at a time? Or a specific character count at a time?

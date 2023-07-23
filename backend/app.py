@@ -1,11 +1,6 @@
 from flask import Flask, request, jsonify
-<<<<<<< HEAD
 from Feynman import Feynman 
 from transformers import pipeline
-=======
-from Feynman import Feynman
-
->>>>>>> faabf899947000bf7eba0d9b821ef5d02f7c553a
 # from flask_cors import CORS
 # from flashcards import Flashcards
 # from speech_recognition import decodebase64
@@ -17,17 +12,13 @@ from Feynman import Feynman
 app = Flask(__name__)
 # CORS(app)
 
-<<<<<<< HEAD
 def initialize():
     qna = pipeline("question-answering")
     summarizer = pipeline("summarizer") 
+    
 summarizer, qna = initialize()
 
 #remember that @app.route is a decorator that makes the function hello_world() run inside the function @app.route()
-=======
-
-# remember that @app.route is a decorator that makes the function hello_world() run inside the function @app.route()
->>>>>>> faabf899947000bf7eba0d9b821ef5d02f7c553a
 @app.route("/")
 def hello_world():
     return "Hi"
@@ -72,13 +63,7 @@ def third_page():
     transcript = request.get_json()
     return Flashcards(transcript)
 
-<<<<<<< HEAD
 if __name__ == '__main__':
     #!aly wants me to initialize the variables WHEN the backend loads, so that running the summarizer doesn't take as long
     initialize()
-    app.run(debug=True)
-=======
->>>>>>> faabf899947000bf7eba0d9b821ef5d02f7c553a
-
-if __name__ == "__main__":
     app.run(debug=True)
