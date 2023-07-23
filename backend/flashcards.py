@@ -18,7 +18,7 @@ def questionAnswering():
     )
     return answers
 
-def Flashcards(transcript = "Nothing has been passed!"):
+def Flashcards(transcript = "Nothing has been passed!", summarizer = pipeline("summarization"), subjectFinder = pipeline("question-answering")):
     print(questionAnswering())
     return transcript
 
