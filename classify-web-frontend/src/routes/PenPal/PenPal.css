@@ -1,0 +1,42 @@
+.titleContainer {
+  border-radius: 20px;
+  box-shadow: 3px 2px 3px 2px black;
+  display: inline-block;
+  margin: 40px;
+  margin-bottom: 60px;
+}
+.btns-container {
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 5px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 0px;
+  cursor: pointer;
+  color: black;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+.btn:hover {
+  box-shadow: 4px 4px 3px 3px rgb(247, 224, 178);
+}
+
+textarea {
+  width: 100%;
+  flex: 1;
+  border: none;
+  border-radius: 5px;
+  background-color: #f2f0eb;
+  padding: 10px;
+  min-height: 500px;
+  font-family: "Victor Mono";
+  padding-left: 20px;
+  color: gray;
+  border-style: none;
+  border-color: Transparent;
+  overflow: auto;
+  outline: none;
+}
