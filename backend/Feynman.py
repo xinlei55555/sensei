@@ -38,30 +38,32 @@ def Feynman(transcript = "Nothing has been passed!", summarizer = pipeline("summ
 
     #generate a subject/title for every 100 words in the notes:
     # subjectFinder =  pipeline("question-answering")
-    subject=[]
+    
     #the number of summarizations depends on the length of the script, and is recursively summarized
 
     #returns a summarized vesrion of each paragraph, by summarizing each sentence
+    subject=subjectFinder(
+                    question="Who or what is the main subject of this paragraph?",
+                    context=summary(transcript, len(transcript) // 500, summarizer),
+                )["answer"]
     point_form=[]
     # summarizer = pipeline("summarization")
     for sentence in paragraph:
         summarized += sentence
-        if len(summarized) > 500:
-            subject.append(
-                subjectFinder(
-                    question="Who or what is the main subject of this paragraph?",
-                    context=summary(transcript, len(transcript) // 500, summarizer),
-                )["answer"]
-            )
+        # if len(summarized) > 500:
+        #     subject=subjectFinder(
+        #             question="Who or what is the main subject of this paragraph?",
+        #             context=summary(transcript, len(transcript) // 500, summarizer),
+        #         )["answer"]
+            
         # summarize three sentences at a time? Or a specific character count at a time?
         if len(summarized) > 350:
             point_form.append(summarizer(summarized)[0]["summary_text"])
             summarized = ""
 
-    if len(subject)<1:
-        notes = {"subject": subject, "point_form": point_form}
-    else:
-        notes = {"subject": subject[0], "point_form":point_form}
+    
+    notes = {"subject": subject, "point_form": point_form}
+    
     return notes
 
 # def test(summarizer):
