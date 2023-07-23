@@ -8,18 +8,27 @@ const SummarizerView = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [isLoadingForMP3, setIsLoadingForMP3] = useState(false);
   const [transcriptValue, setTranscriptValue] = useState("");
-<<<<<<< HEAD
-=======
-  const [penpalValue, setPenPalValue] = useState("");
+  const [penpalValue, setPenPalValue] = useState([
+    {
+      point_form: [
+        "earliest implicit proof by mathematical induction was written by al-Karaji around 1000 AD . he applied it to arithmetic sequences to prove the binomial theorem and properties of Pascal's triangle . al-Samawal al-Maghribi used such an argument to prove result on sums of integral cubes already known to Aryabhata .",
+        "al-Karaji's argument includes in essence the two basic components of a modern argument by induction . the truth of the statement for n = 1 (1 = 13) and the deriving of the truth for k from that of n= k - 1 . al-Fakhri is the earliest extant proof of the sum formula for integral cubes .",
+      ],
+      subject: "Pascal",
+    },
+  ]);
   const [isLoadingForPenPal, setIsLoadingForPenPal] = useState(false);
->>>>>>> a767207efc022e5d9e6fd84d6136301e9988020f
   const {
     transcript,
     listening,
     resetTranscript,
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
-
+  useEffect(() => {
+    console.log(penpalValue);
+    localStorage.setItem("penpalNotes", JSON.stringify(penpalValue));
+    console.log(localStorage.getItem("penpalNotes"));
+  }, [penpalValue]);
   useEffect(() => {
     if (isRecording) {
       resetTranscript();
@@ -39,46 +48,32 @@ const SummarizerView = () => {
     console.log(file);
     const encodeFileBase64 = (file) => {
       var reader = new FileReader();
-<<<<<<< HEAD
-      if (file) {
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          var Base64 = reader.result;
-=======
       let Base64 = "";
       if (file) {
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          Base64 = reader.result;
->>>>>>> a767207efc022e5d9e6fd84d6136301e9988020f
-          console.log(Base64);
-        };
-        reader.onerror = (error) => {
-          console.log("error: ", error);
-        };
-<<<<<<< HEAD
+        return new Promise((resolve, reject) => {
+          reader.readAsDataURL(file);
+          reader.onload = function (event) {
+            resolve(event.target.result);
+          };
+          reader.onerror = function (error) {
+            reject(error);
+          };
+        });
       }
+
+      // reader.readAsDataURL(file)
+      // return reader.onload();
     };
+
     if (file) {
-      encodeFileBase64(file);
-    }
-    setIsLoadingForMP3(false);
-  };
-=======
-        return Base64;
-      }
-    };
-    if (file) {
-      let Base64 = encodeFileBase64(file);
       try {
-        const body = { file: Base64 };
-        console.log(body);
+        let Base64 = await encodeFileBase64(file);
+        const formData = new FormData();
+        formData.append("file", Base64);
         const response = await fetch("http://127.0.0.1:5000/recognizer", {
-          body: JSON.stringify(body),
+          body: formData,
+          mode: "no-cors",
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
         });
         const data = await response.json();
         setTranscriptValue(data);
@@ -103,12 +98,12 @@ const SummarizerView = () => {
       const data = await response.json();
       setPenPalValue(data);
       console.log(data);
+      localStorage.setItem("penpalNotes", data);
     } catch (err) {
       console.log(err);
     }
     setIsLoadingForPenPal(false);
   };
->>>>>>> a767207efc022e5d9e6fd84d6136301e9988020f
 
   if (!browserSupportsSpeechRecognition && isRecording) {
     return (
@@ -178,11 +173,7 @@ const SummarizerView = () => {
                   class="someClass"
                   type="file"
                   name="UploadAudio"
-<<<<<<< HEAD
                   accept=".mp3,audio/*"
-=======
-                  accept=".mp3"
->>>>>>> a767207efc022e5d9e6fd84d6136301e9988020f
                   hidden
                   disabled={isLoadingForMP3}
                   onChange={uploadFile}
@@ -205,19 +196,12 @@ const SummarizerView = () => {
               <button
                 className="btn"
                 style={{
-<<<<<<< HEAD
-                  backgroundColor: "#0388fc",
-                  color: "white",
-                  borderRadius: 10,
-                }}
-=======
                   backgroundColor: !isLoadingForPenPal ? "#0388fc" : "black",
                   color: "white",
                   borderRadius: 10,
                 }}
                 onClick={PenPal}
                 disabled={isLoadingForPenPal}
->>>>>>> a767207efc022e5d9e6fd84d6136301e9988020f
               >
                 <i style={{ fontFamily: "Victor Mono", fontWeight: "bold" }}>
                   PenPal
@@ -244,23 +228,34 @@ const SummarizerView = () => {
             }}
             value={transcriptValue}
           />
-          <textarea
+          <div
             style={{
               fontStyle: "italic",
               fontWeight: "400",
             }}
-            placeholder="PenPal..."
-<<<<<<< HEAD
-            value={""}
-=======
-            value={
-              typeof penpalValue === "string"
-                ? ""
-                : penpalValue.subject + "\n" + JSON.stringify(penpalValue)
-            }
->>>>>>> a767207efc022e5d9e6fd84d6136301e9988020f
-            disabled
-          />
+            className="textArea"
+          >
+            {typeof penpalValue === "string"
+              ? "PenPal..."
+              : penpalValue.map((obj) => {
+                  return (
+                    <div key={obj.subject}>
+                      <p style={{ fontWeight: "bold", fontSize: 20 }}>
+                        {obj.subject}
+                      </p>
+                      <div>
+                        {obj.point_form.map((point) => {
+                          return (
+                            <p style={{ padding: 10, paddingLeft: 10 }}>
+                              - {point}
+                            </p>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+          </div>
         </div>
       </div>
     </div>
@@ -268,3 +263,5 @@ const SummarizerView = () => {
 };
 
 export default SummarizerView;
+// Pascal
+//
