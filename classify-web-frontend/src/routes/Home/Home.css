@@ -1,0 +1,63 @@
+.home {
+  background-color: antiquewhite;
+  padding-bottom: 10px;
+  background: linear-gradient(
+    -45deg,
+    #3ca0e7,
+    antiquewhite,
+    rgb(252, 241, 227),
+    #0c4872
+  );
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+  min-height: 100vh;
+}
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  justify-content: space-around;
+  align-items: space-around;
+  gap: 40px;
+}
+
+.actions > .action {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 30px;
+  flex: 1;
+  align-items: center;
+}
+.actions > .action p {
+  flex: 1;
+  font-weight: 500;
+}
+.actions > .action div {
+  flex: 1;
+}
+.actions > .action div button {
+  border-radius: 10px;
+  border: solid 1px;
+  padding: 10px;
+  margin: 10px;
+  color: white;
+  box-shadow: 5px 10px 2px 2px gray;
+  background-color: #0c4872;
+}
+
+.actions > .action div button:hover {
+  box-shadow: 5px 10px 2px 2px #c3c9cd;
+}
