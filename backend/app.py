@@ -78,5 +78,5 @@ def third_page():
 
 if __name__ == '__main__':
     #!aly wants me to initialize the variables WHEN the backend loads, so that running the summarizer doesn't take as long
-    initialize()
     app.run(debug=True)
+    initialize()
